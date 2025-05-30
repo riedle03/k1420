@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<!--
+  This HTML file contains a single-file infographic summarizing a student collaborative research report.
+  It includes all CSS and JavaScript embedded within the file.
+-->
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI 프롬프트 활용 효과 분석 보고서 인포그래픽</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.0/dist/chart.min.js"></script>
+    <style>
+        /* Custom CSS for fonts and general styling */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #F4F7F9; /* Light Background */
+            color: #263238; /* Dark Text */
+            line-height: 1.6;
+        }
+        h1, h2, h3, h4 {
+            color: #2A62B6; /* Primary Blue */
+            font-weight: 700;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1.5rem;
+        }
+        .card {
+            background-color: #FFFFFF; /* Card Background */
+            border-radius: 0.75rem; /* rounded-xl */
+            padding: 2rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .section-heading {
+            font-size: 2.25rem; /* text-4xl */
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+        .sub-heading {
+            font-size: 1.75rem; /* text-3xl */
+            margin-bottom: 1rem;
+            color: #2A62B6;
+        }
+        .text-content {
+            font-size: 1.125rem; /* text-lg */
+            line-height: 1.8;
+        }
+        .chart-container {
+            position: relative;
+            height: 350px; /* Default height for charts */
+            max-height: 450px; /* Max height for charts */
+            margin: 0 auto; /* Center charts */
+        }
+        /* Responsive adjustments for chart containers */
+        @media (min-width: 768px) { /* md */
+            .chart-container {
+                height: 400px;
+            }
+        }
+        @media (min-width: 1024px) { /* lg */
+            .chart-container {
+                height: 450px;
+            }
+        }
+
+        /* Custom tooltip styling for Chart.js */
+        .chartjs-tooltip {
+            background: rgba(42, 98, 182, 0.9); /* Primary Blue with transparency */
+            border-radius: 0.5rem;
+            padding: 0.75rem 1rem;
+            color: #FFFFFF;
+            font-size: 0.875rem;
+            line-height: 1.4;
+            pointer-events: none;
+            opacity: 0;
+            transition: all 0.1s ease;
+            z-index: 1000; /* Ensure tooltip is on top */
+        }
+        .chartjs-tooltip.active {
+            opacity: 1;
+        }
+        .chartjs-tooltip-header {
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+            padding-bottom: 0.25rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        .chartjs-tooltip-body {
+            margin-top: 0.25rem;
+        }
+        .chartjs-tooltip-item {
+            display: flex;
+            align-items: center;
+            margin-top: 0.25rem;
+        }
+        .chartjs-tooltip-item-color {
+            width: 1rem;
+            height: 1rem;
+            border-radius: 50%;
+            margin-right: 0.5rem;
+            flex-shrink: 0; /* Prevent shrinking */
+        }
+    </style>
+</head>
+<body class="antialiased">
+    <header class="bg-gradient-to-r from-blue-700 to-blue-500 text-white py-12 px-4 rounded-b-xl shadow-lg">
+        <div class="container text-center">
+            <h1 class="text-5xl font-extrabold mb-4">AI 프롬프트 활용 효과 분석 보고서</h1>
+            <p class="text-xl font-light opacity-90">미림마이스터고등학교 1학년 4반 공동 조사 보고서 요약 인포그래픽</p>
+        </div>
+    </header>
+
+    <main class="container py-12 space-y-12">
+        <section class="card p-8">
+            <h2 class="section-heading">조사 목적과 동기</h2>
+            <div class="text-content">
+                <p class="mb-4">최근 인공지능(AI) 활용이 급증함에 따라 학교 현장에서도 AI를 학습 도구로 적극 활용하는 사례가 증가하였다. 이에 미림마이스터고등학교 1학년 4반 학생들이 AI를 어떻게 사용하는지 구체적으로 파악하고자 본 조사를 기획하였다.</p>
+                <p class="mb-4">특히 프롬프트의 구체성과 명확성이 AI 응답의 질에 미치는 영향을 분석하여, 향후 AI 활용 수업의 방향을 제시하고 학생들의 효과적인 AI 활용을 돕고자 하였다. 또한 생성형 AI 시대에 요구되는 디지털 리터러시 능력 향상을 위한 기초 자료로 활용될 수 있다고 판단하였다.</p>
+                <p class="font-semibold text-blue-600">디지털 리터러시란?</p>
+                <p class="text-base text-gray-700">디지털 도구를 비판적으로 이해하고, 정보를 효과적으로 활용하며, 문제 해결이나 창의적 사고를 적용할 수 있는 능력을 의미한다. AI에게 질문을 구조화하거나 반복적으로 조정하는 과정에서 디지털 리터러시가 발휘된다.</p>
+            </div>
+        </section>
+
+        <section class="card p-8">
+            <h2 class="section-heading">조사 계획</h2>
+            <div class="grid md:grid-cols-3 gap-8 text-center text-content">
+                <div class="p-6 bg-blue-50 rounded-lg shadow-sm flex flex-col items-center justify-center">
+                    <h3 class="sub-heading mb-2">조사 기간</h3>
+                    <p class="text-lg font-semibold text-blue-700">2025년 5월 1일 ~ 5월 17일</p>
+                    <p class="text-sm text-gray-600 mt-2">AI 활용 수업 직후, 학생들의 인식과 반응을 신속하게 조사하고자 선정하였다.</p>
+                </div>
+                <div class="p-6 bg-blue-50 rounded-lg shadow-sm flex flex-col items-center justify-center">
+                    <h3 class="sub-heading mb-2">조사 대상</h3>
+                    <p class="text-lg font-semibold text-blue-700">미림마이스터고 1학년 4반 학생 총 18명</p>
+                    <p class="text-sm text-gray-600 mt-2">AI 활용 수업을 경험한 동일 학급 내 학생들을 대상으로 하였다.</p>
+                </div>
+                <div class="p-6 bg-blue-50 rounded-lg shadow-sm flex flex-col items-center justify-center">
+                    <h3 class="sub-heading mb-2">조사 방법</h3>
+                    <p class="text-lg font-semibold text-blue-700">설문조사 + 개별 인터뷰 병행</p>
+                    <p class="text-sm text-gray-600 mt-2">객관식과 단답형 혼합 온라인/종이 설문, AI 사용 경험과 전략을 심층적으로 파악하고자 하였다.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="card p-8">
+            <h2 class="section-heading">조사 결과</h2>
+
+            <h3 class="sub-heading mt-8 mb-4 text-center">설문 조사 결과: AI 주기적 활용 여부</h3>
+            <p class="text-content mb-6 text-center">총 18명의 학생 중 AI를 주기적으로 활용하는 학생과 그렇지 않은 학생의 비율을 나타낸다.</p>
+            <div class="chart-container w-full max-w-lg mx-auto">
+                <canvas id="aiRegularUsageChart"></canvas>
+            </div>
+            <p class="text-content mt-4 text-center font-semibold text-blue-700">총 18명 중 16명 (88.9%)이 AI를 주기적으로 활용하고 있음을 확인하였다.</p>
+
+            <h3 class="sub-heading mt-12 mb-4 text-center">설문 조사 결과: 프롬프트 구체성 인식</h3>
+            <p class="text-content mb-6 text-center">AI에게 질문할 때, 원하는 답변을 명확하고 효과적으로 얻기 위해 프롬프트의 구체성이 얼마나 중요하다고 생각하는지에 대한 설문 결과이다.</p>
+            <div class="chart-container w-full max-w-lg mx-auto">
+                <canvas id="promptSpecificityChart"></canvas>
+            </div>
+            <p class="text-content mt-4 text-center font-semibold text-blue-700">응답자의 94.4%가 프롬프트 구체성을 “중요하다” 이상으로 인식하였다. 이는 AI 활용 시 명확한 지시 필요성에 대한 강한 공감대를 확인한 결과이다.</p>
+
+            <h3 class="sub-heading mt-12 mb-4 text-center">설문 조사 결과: 프롬프트 수정 및 개선 방법</h3>
+            <p class="text-content mb-6 text-center">AI로부터 만족스럽지 못한 답변을 받았을 때, 더 나은 답변을 얻기 위해 프롬프트를 어떻게 수정하거나 개선하는지에 대한 설문 결과이다.</p>
+            <div class="chart-container w-full max-w-lg mx-auto">
+                <canvas id="promptModificationChart"></canvas>
+            </div>
+            <p class="text-content mt-4 text-center font-semibold text-blue-700">부적절한 답변 수신 시 추가 정보 제공이 가장 효과적인 개선 방법으로 인식되었다 (77.8%). 이는 AI의 이해도 향상을 위한 데이터 풍부화 필요성을 강조한다.</p>
+
+            <h3 class="sub-heading mt-12 mb-4 text-center">설문 조사 결과: AI 한계 고려의 유용성</h3>
+            <p class="text-content mb-6 text-center">AI가 답변할 수 있는 정보의 범위나 능력에 한계가 있다는 점을 고려하여 프롬프트를 작성하는 것이 효과적인 답변을 얻는 데 얼마나 도움이 되는지에 대한 설문 결과이다.</p>
+            <div class="chart-container w-full max-w-lg mx-auto">
+                <canvas id="aiLimitationChart"></canvas>
+            </div>
+            <p class="text-content mt-4 text-center font-semibold text-blue-700">AI의 한계 고려가 효과적인 프롬프트 작성에 도움된다는 인식이 우세하였다. 기술적 제약 이해가 사용자-AI 상호작용 최적화에 기여함을 확인하였다.</p>
+
+            <h3 class="sub-heading mt-12 mb-4 text-center">종합 결론 및 인터뷰 요약</h3>
+            <div class="grid md:grid-cols-2 gap-8 mt-8">
+                <div class="card p-6 bg-blue-50">
+                    <h4 class="text-2xl font-bold mb-4 text-blue-700">종합 설문 결론</h4>
+                    <ul class="list-disc list-inside text-content space-y-2">
+                        <li>총 18명 중 16명이 AI를 주기적으로 활용하였다.</li>
+                        <li>14명 (77.8%)이 "질문이 구체적일수록 더 만족스러운 답변을 얻었다"고 응답하였다.</li>
+                        <li>질문을 한 번에 만족스럽게 작성하지 못한 경우, 약 80%가 질문을 반복 수정하며 결과 개선을 시도하였다.</li>
+                    </ul>
+                </div>
+                <div class="card p-6 bg-blue-50">
+                    <h4 class="text-2xl font-bold mb-4 text-blue-700">인터뷰 요약: 김희성 학생</h4>
+                    <ul class="list-disc list-inside text-content space-y-2">
+                        <li>만족스러운 답변 획득까지 평균 약 10분 소요, 최장 20분 (역사 수행평가 주제 구성).</li>
+                        <li>프롬프트 작성 방식: 주제 제시 후 AI 의견 요청 → 글쓰기 요청.</li>
+                        <li>불편한 점: 학교 인터넷 속도 저하로 인한 응답 지연.</li>
+                    </ul>
+                </div>
+                <div class="card p-6 bg-blue-50 md:col-span-2">
+                    <h4 class="text-2xl font-bold mb-4 text-blue-700">인터뷰 요약: 박주혁 학생</h4>
+                    <ul class="list-disc list-inside text-content space-y-2">
+                        <li>초보자에게 조언: 최대한 상세하고 구체적으로 프롬프트를 작성해야 한다고 강조하였다.</li>
+                        <li>성공 사례: 로고 디자인 요청 시 스타일/컬러/용도 세부 입력으로 만족스러운 결과 획득.</li>
+                        <li>실수 경험: 여행지 추천 시 지역 미명시로 불명확한 답변 수신 → 지역 명시 후 유용한 정보 획득.</li>
+                        <li>느낀 점: 질문 내용이 명확할수록 AI가 더 정확하게 반응함을 체감하였다. 반복 수정 과정을 통해 AI를 원하는 방향으로 조정할 수 있어 만족하였다.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section class="card p-8">
+            <h2 class="section-heading">결론</h2>
+            <div class="text-content space-y-4">
+                <p>본 조사는 미림마이스터고등학교 1학년 4반 학생들이 인공지능(AI)을 어떻게 활용하고 있는지, 그리고 그 과정에서 어떤 어려움과 전략을 가지고 있는지를 구체적으로 파악하고자 진행되었다. AI가 교육 현장에서 중요한 도구로 자리 잡는 현실 속에서, 실제 학생들의 사용 경험을 바탕으로 효과적인 AI 교육 방향을 설정하고자 하였다.</p>
+                <p>조사 결과, 학생들은 AI에게 질문을 던질 때 질문이 얼마나 명확하고 구체적인지가 답변의 질에 큰 영향을 미친다는 사실을 인식하였다. 이는 단순히 질문을 던지는 것을 넘어, 답을 얻기 위해 전략적으로 프롬프트를 다듬고 있다는 점에서 의미가 있다.</p>
+                <p>또한 학생들은 AI의 한계를 경험적으로 체감하였다. 예를 들어, 역사 과제를 진행하던 한 학생은 AI가 제공한 자료가 교과서 내용과 맞지 않거나 일부 누락된 부분이 있어 스스로 다시 확인하고 수정하였다. 이처럼 학생들은 AI가 완전무결하지 않다는 점을 인식하고 있으며, 그 한계를 보완하기 위한 태도를 보였다.</p>
+                <p>이 과정에서 흥미로운 점은, 학생들이 점차 모호한 질문보다 구체적이고 상황에 맞는 질문을 하도록 학습하고 있다는 것이다. 한 학생은 "AI야, 환경 문제 알려줘"라는 질문을 "기후 변화로 인한 해수면 상승 원인을 중학생도 이해할 수 있게 설명해줘"로 바꾼 뒤에야 원하는 답을 얻을 수 있었다고 말하였다. 이러한 사례는 학생들이 단순히 기능을 사용하는 것을 넘어, 디지털 리터러시와 메타인지 능력을 함께 키워가고 있음을 보여준다.</p>
+                <p>결과적으로, 이번 조사는 학생들이 AI를 어떻게 활용하고 있는지를 넘어, 그들이 AI와의 상호작용을 통해 어떻게 사고하고 문제를 해결해 나가는지를 보여주는 자료가 되었다. 따라서 향후 AI 교육은 기능 중심을 넘어서, 질문 설계 능력과 결과 해석, 그리고 정보 재구성 능력을 기르는 방향으로 나아가야 한다.</p>
+                <p>이러한 관점에서 본 조사는 단순한 실태 파악 이상의 의미를 지닌다. 실제 사례를 바탕으로 학생들의 전략적 사고 방식을 파악하고, AI 교육의 방향성을 설정하는 데 실질적인 기초 자료로 활용될 수 있다. 특히 디지털 시대를 살아가는 학생들에게 필요한 핵심 역량이 무엇인지를 확인할 수 있었다는 점에서, 이번 조사는 교육적 가치가 높다고 평가된다.</p>
+            </div>
+        </section>
+
+        <section class="card p-8">
+            <h2 class="section-heading">참고 자료</h2>
+            <ul class="list-disc list-inside text-content space-y-2">
+                <li>Chat GPT</li>
+                <li>Gemini</li>
+                <li>Perplexity</li>
+            </ul>
+        </section>
+    </main>
+
+    <footer class="bg-gray-800 text-white py-8 px-4 text-center rounded-t-xl mt-12">
+        <div class="container">
+            <p class="text-lg mb-2">1학년 4반 2조 공동 조사 보고서</p>
+            <p class="text-sm opacity-80">작성일: 2025년 5월 29일</p>
+            <div class="mt-4">
+                <p class="font-semibold">조원:</p>
+                <p>공은성 (1402), 권초현 (1403), 이보미 (1412), 홍성재 (1417), 황나연 (1418)</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Function to wrap long labels for Chart.js
+            function wrapLabel(label, maxCharsPerLine) {
+                if (typeof label !== 'string') return label;
+                const words = label.split(' ');
+                let lines = [];
+                let currentLine = '';
+
+                words.forEach(word => {
+                    if ((currentLine + word).length > maxCharsPerLine && currentLine !== '') {
+                        lines.push(currentLine.trim());
+                        currentLine = word + ' ';
+                    } else {
+                        currentLine += word + ' ';
+                    }
+                });
+                lines.push(currentLine.trim());
+                return lines;
+            }
+
+            // Custom tooltip for Chart.js
+            const customTooltip = {
+                external: function(context) {
+                    // Tooltip Element
+                    let tooltipEl = document.getElementById('chartjs-tooltip');
+
+                    // Create element on first render
+                    if (!tooltipEl) {
+                        tooltipEl = document.createElement('div');
+                        tooltipEl.id = 'chartjs-tooltip';
+                        tooltipEl.className = 'chartjs-tooltip';
+                        tooltipEl.innerHTML = '<table></table>';
+                        document.body.appendChild(tooltipEl);
+                    }
+
+                    // Hide if no tooltip
+                    const tooltipModel = context.tooltip;
+                    if (tooltipModel.opacity === 0) {
+                        tooltipEl.style.opacity = '0';
+                        return;
+                    }
+
+                    // Set caret Position
+                    tooltipEl.classList.remove('above', 'below', 'no-transform');
+                    if (tooltipModel.yAlign) {
+                        tooltipEl.classList.add(tooltipModel.yAlign);
+                    } else {
+                        tooltipEl.classList.add('no-transform');
+                    }
+
+                    // Set Text
+                    if (tooltipModel.body) {
+                        const titleLines = tooltipModel.title || [];
+                        const bodyLines = tooltipModel.body.map(b => b.lines);
+
+                        let innerHtml = '<thead>';
+                        titleLines.forEach(function(title) {
+                            innerHtml += `<div class="chartjs-tooltip-header">${title}</div>`;
+                        });
+                        innerHtml += '</thead><tbody>';
+
+                        bodyLines.forEach(function(body, i) {
+                            const colors = tooltipModel.labelColors[i];
+                            const style = `background: ${colors.backgroundColor}; border-color: ${colors.borderColor};`;
+                            innerHtml += `
+                                <div class="chartjs-tooltip-item">
+                                    <span class="chartjs-tooltip-item-color" style="${style}"></span>
+                                    <span>${body}</span>
+                                </div>
+                            `;
+                        });
+                        innerHtml += '</tbody>';
+
+                        let tableRoot = tooltipEl.querySelector('table');
+                        tableRoot.innerHTML = innerHtml;
+                    }
+
+                    const position = context.chart.canvas.getBoundingClientRect();
+                    // Removed the problematic line: const bodyFont = Chart.helpers.to fontString(tooltipModel.options.bodyFont);
+
+                    // Display, position, and set styles
+                    tooltipEl.style.opacity = '1';
+                    tooltipEl.style.position = 'absolute';
+                    tooltipEl.style.left = position.left + window.pageXOffset + tooltipModel.caretX + 'px';
+                    tooltipEl.style.top = position.top + window.pageYOffset + tooltipModel.caretY + 'px';
+                    // Removed the problematic line: tooltipEl.style.font = bodyFont;
+                    tooltipEl.style.padding = tooltipModel.padding + 'px ' + tooltipModel.padding + 'px';
+                    tooltipEl.style.pointerEvents = 'none';
+                }
+            };
+
+            // Chart Data and Configuration
+            const chartConfigs = {
+                aiRegularUsageChart: {
+                    type: 'pie',
+                    data: {
+                        labels: ['주기적 활용 (16명)', '비주기적 활용 (2명)'],
+                        datasets: [{
+                            data: [16, 2],
+                            backgroundColor: [
+                                '#2A62B6', // Primary Blue
+                                '#A9A9A9'  // Accent Grey
+                            ],
+                            borderColor: '#FFFFFF',
+                            borderWidth: 2
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                position: 'right',
+                                labels: {
+                                    font: {
+                                        size: 14
+                                    },
+                                    color: '#263238',
+                                    padding: 15,
+                                    boxWidth: 20,
+                                    boxHeight: 20
+                                }
+                            },
+                            title: {
+                                display: true,
+                                text: 'AI 주기적 활용 여부',
+                                font: {
+                                    size: 18,
+                                    weight: 'bold'
+                                },
+                                color: '#263238'
+                            },
+                            tooltip: {
+                                enabled: false, // Disable default tooltip
+                                position: 'nearest',
+                                external: customTooltip.external,
+                                callbacks: {
+                                    title: function(context) {
+                                        return context[0].label;
+                                    },
+                                    label: function(context) {
+                                        const value = context.parsed;
+                                        const total = context.dataset.data.reduce((sum, val) => sum + val, 0);
+                                        const percentage = ((value / total) * 100).toFixed(1);
+                                        return `응답자 수: ${value}명 (${percentage}%)`;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                promptSpecificityChart: {
+                    type: 'pie', // Pie chart for percentages
+                    data: {
+                        labels: [
+                            '전혀 중요하지 않다 (0%)',
+                            '중요하지 않다 (0%)',
+                            '보통이다 (5.6%)',
+                            '중요하다 (61.1%)',
+                            '매우 중요하다 (33.3%)'
+                        ].map(label => wrapLabel(label, 16)), // Apply label wrapping
+                        datasets: [{
+                            data: [0, 0, 1, 11, 6],
+                            backgroundColor: [
+                                '#A9A9A9', // Accent Grey
+                                '#A9A9A9',
+                                '#4ECDC4', // Secondary Teal
+                                '#2A62B6', // Primary Blue
+                                '#1E40AF' // Darker Blue for emphasis
+                            ],
+                            borderColor: '#FFFFFF',
+                            borderWidth: 2
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                position: 'right',
+                                labels: {
+                                    font: {
+                                        size: 14
+                                    },
+                                    color: '#263238',
+                                    padding: 15,
+                                    boxWidth: 20,
+                                    boxHeight: 20
+                                }
+                            },
+                            title: {
+                                display: true,
+                                text: '프롬프트 구체성의 중요성 인식',
+                                font: {
+                                    size: 18,
+                                    weight: 'bold'
+                                },
+                                color: '#263238'
+                            },
+                            tooltip: {
+                                enabled: false, // Disable default tooltip
+                                position: 'nearest',
+                                external: customTooltip.external,
+                                callbacks: {
+                                    title: function(context) {
+                                        return context[0].label.join(' ');
+                                    },
+                                    label: function(context) {
+                                        const value = context.parsed;
+                                        const total = context.dataset.data.reduce((sum, val) => sum + val, 0);
+                                        const percentage = ((value / total) * 100).toFixed(1);
+                                        return `응답자 수: ${value}명 (${percentage}%)`;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                promptModificationChart: {
+                    type: 'bar',
+                    data: {
+                        labels: [
+                            '질문의 단어나 표현을 조금 바꿔서 다시 질문한다.',
+                            '질문에 더 자세한 정보나 맥락을 추가하여 질문한다.',
+                            '원하는 답변의 형식이나 스타일을 명시해서 질문한다.',
+                            '질문을 여러 개로 나누어 단계적으로 질문한다.',
+                            '특별히 수정하지 않고 다른 질문을 하거나 AI 사용을 중단한다.'
+                        ].map(label => wrapLabel(label, 16)), // Apply label wrapping
+                        datasets: [{
+                            label: '응답자 수 (명)',
+                            data: [1, 14, 2, 0, 1],
+                            backgroundColor: [
+                                '#A9A9A9',
+                                '#2A62B6', // Primary Blue for most common
+                                '#4ECDC4',
+                                '#A9A9A9',
+                                '#A9A9A9'
+                            ],
+                            borderColor: '#FFFFFF',
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        indexAxis: 'y', // Horizontal bar chart
+                        plugins: {
+                            legend: {
+                                display: false
+                            },
+                            title: {
+                                display: true,
+                                text: '만족스럽지 못한 답변 시 프롬프트 수정 방법',
+                                font: {
+                                    size: 18,
+                                    weight: 'bold'
+                                },
+                                color: '#263238'
+                            },
+                            tooltip: {
+                                enabled: false, // Disable default tooltip
+                                position: 'nearest',
+                                external: customTooltip.external,
+                                callbacks: {
+                                    title: function(context) {
+                                        return context[0].label.join(' ');
+                                    },
+                                    label: function(context) {
+                                        const value = context.parsed.x;
+                                        const total = context.dataset.data.reduce((sum, val) => sum + val, 0);
+                                        const percentage = ((value / total) * 100).toFixed(1);
+                                        return `응답자 수: ${value}명 (${percentage}%)`;
+                                    }
+                                }
+                            }
+                        },
+                        scales: {
+                            x: {
+                                beginAtZero: true,
+                                title: {
+                                    display: true,
+                                    text: '응답자 수',
+                                    font: {
+                                        size: 14
+                                    },
+                                    color: '#263238'
+                                },
+                                ticks: {
+                                    stepSize: 1,
+                                    color: '#263238'
+                                }
+                            },
+                            y: {
+                                ticks: {
+                                    color: '#263238',
+                                    font: {
+                                        size: 12
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                aiLimitationChart: {
+                    type: 'bar',
+                    data: {
+                        labels: [
+                            '매우 도움되지 않는다 (0%)',
+                            '조금 도움되지 않는다 (0%)',
+                            '보통이다 (22%)',
+                            '조금 도움이 된다 (50%)',
+                            '매우 도움이 된다 (27.8%)'
+                        ].map(label => wrapLabel(label, 16)), // Apply label wrapping
+                        datasets: [{
+                            label: '응답자 수 (명)',
+                            data: [0, 0, 4, 9, 5],
+                            backgroundColor: [
+                                '#A9A9A9',
+                                '#A9A9A9',
+                                '#4ECDC4',
+                                '#2A62B6',
+                                '#1E40AF'
+                            ],
+                            borderColor: '#FFFFFF',
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                display: false
+                            },
+                            title: {
+                                display: true,
+                                text: 'AI 정보 범위/능력 한계 고려의 유용성',
+                                font: {
+                                    size: 18,
+                                    weight: 'bold'
+                                },
+                                color: '#263238'
+                            },
+                            tooltip: {
+                                enabled: false, // Disable default tooltip
+                                position: 'nearest',
+                                external: customTooltip.external,
+                                callbacks: {
+                                    title: function(context) {
+                                        return context[0].label.join(' ');
+                                    },
+                                    label: function(context) {
+                                        const value = context.parsed.y;
+                                        const total = context.dataset.data.reduce((sum, val) => sum + val, 0);
+                                        const percentage = ((value / total) * 100).toFixed(1);
+                                        return `응답자 수: ${value}명 (${percentage}%)`;
+                                    }
+                                }
+                            }
+                        },
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                title: {
+                                    display: true,
+                                    text: '응답자 수',
+                                    font: {
+                                        size: 14
+                                    },
+                                    color: '#263238'
+                                },
+                                ticks: {
+                                    stepSize: 1,
+                                    color: '#263238'
+                                }
+                            },
+                            x: {
+                                ticks: {
+                                    color: '#263238',
+                                    font: {
+                                        size: 12
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            };
+
+            // Initialize all charts
+            for (const chartId in chartConfigs) {
+                const ctx = document.getElementById(chartId);
+                if (ctx) {
+                    new Chart(ctx, chartConfigs[chartId]);
+                }
+            }
+        });
+    </script>
+    <!--
+      이 HTML 인포그래픽은 학생 공동 조사 보고서의 핵심 내용을 시각적으로 요약한다.
+      보고서의 주요 연구 내용, 방법론, 핵심 결과 및 결론을 명확하게 전달하며,
+      모든 스타일과 스크립트는 단일 HTML 파일 내에 포함되어 있다.
+    -->
+</body>
+</html>
